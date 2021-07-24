@@ -128,6 +128,11 @@ jobs:
           ref: master
           path: master
 
+      - name: Set up JDK
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
       - name: Sign APKs
         run: |
           cd master
@@ -136,6 +141,11 @@ jobs:
             ${{ secrets.ALIAS }} \
             ${{ secrets.KEY_STORE_PASSWORD }} \
             ${{ secrets.KEY_PASSWORD }}
+
+      - name: Run inspector
+        run: |
+          cd master
+          java -jar ./.github/runner-files/Inspector.jar "apk" "output.json" "tmp"
 
       - name: Create repo artifacts
         run: |
