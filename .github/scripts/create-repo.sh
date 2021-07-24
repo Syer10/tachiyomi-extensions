@@ -30,7 +30,7 @@ for APK in ${APKS[@]}; do
     ICON=$(echo "$BADGING" | grep -Po "application-icon-320.*'\K[^']+")
     unzip -p $APK $ICON > icon/${FILENAME%.*}.png
 
-    SOURCE_INFO=$(jq ".[\"$PKGNAME\"]" < output.json)
+    SOURCE_INFO=$(jq ".[\"$PKGNAME\"]" < ~/master/output.json)
 
     jq -n \
         --arg name "$LABEL" \
