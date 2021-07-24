@@ -5,7 +5,7 @@
 #TOOLS="$(ls -d ${ANDROID_HOME}/build-tools/* | tail -1)"
 
 # Get APKs from previous jobs' artifacts
-cp -R ~/apk-artifacts/ $PWD
+cp -R ~/apk-artifacts/ "$PWD/apk/"
 #APKS=( **/*".apk" )
 #
 ## Fail if too little extensions seem to have been built
