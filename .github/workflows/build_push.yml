@@ -27,7 +27,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        lang: [all, en, ar, ca, de, es, fr, id, it, ja, ko, pt, ru, th, tr, vi, zh, bg, hi, pl]
+        lang: [all]
     steps:
       - name: Checkout master branch
         uses: actions/checkout@v2
@@ -76,7 +76,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        lang: [all, en, ar, ca, de, es, fr, id, it, ja, ko, pt, ru, th, tr, vi, zh, bg, hi, pl]
+        lang: [all]
     steps:
       - name: Checkout master branch
         uses: actions/checkout@v2
@@ -131,7 +131,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: 11
 
       - name: Sign APKs
         run: |
@@ -146,7 +146,9 @@ jobs:
       - name: Run inspector
         run: |
           cd master
-          java -jar ./.github/runner-files/Inspector.jar "apk" "output.json" "tmp"
+          INSPECTOR_LINK="$(curl -s "https://api.github.com/repos/tachiyomiorg/tachiyomi-extensions-inspector/releases/latest" | grep -o "https.*download\/[a-zA-Z0-9.\/-]*")"
+          curl -L "$INSPECTOR_LINK" -o ./Inspector.tar
+          java -jar ./Inspector.jar "apk" "output.json" "tmp"
 
       - name: Create repo artifacts
         run: |
