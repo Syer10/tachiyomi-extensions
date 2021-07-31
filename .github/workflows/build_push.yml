@@ -146,8 +146,8 @@ jobs:
       - name: Run inspector
         run: |
           cd master
-          INSPECTOR_LINK="$(curl -s "https://api.github.com/repos/tachiyomiorg/tachiyomi-extensions-inspector/releases/latest" | jq '.assets[0].browser_download_url')"
-          curl -L $INSPECTOR_LINK -o ./Inspector.jar
+          INSPECTOR_LINK="$(curl -s "https://api.github.com/repos/tachiyomiorg/tachiyomi-extensions-inspector/releases/latest" | jq -r '.assets[0].browser_download_url')"
+          curl -L "$INSPECTOR_LINK" -o ./Inspector.jar
           java -jar ./Inspector.jar "apk" "output.json" "tmp"
 
       - name: Create repo artifacts
